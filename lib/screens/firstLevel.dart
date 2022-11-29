@@ -42,113 +42,106 @@ class _FirstLevelState extends State<FirstLevel> {
 
   @override
   Widget build(BuildContext context) {
-    UserCredential userCredential =
-        FirebaseAuth.instance.signInAnonymously() as UserCredential;
-    CollectionReference users =
-        FirebaseFirestore.instance.collection('Leaderboard');
-
+    final String auth = FirebaseAuth.instance.currentUser!.uid;
+    final _usersStream = FirebaseFirestore.instance
+        .collection('Leaderboard')
+        .doc(auth)
+        .snapshots();
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    return StreamBuilder(
-      stream: users.doc(userCredential.user!.uid).get(),
-      builder: (context, snapshot) {
-        return Scaffold(
-          backgroundColor: mainColor,
-          body: SizedBox(
-            height: height,
-            width: width,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ConfettiWidget(
-                  confettiController: _controllerCenter,
-                  blastDirectionality: BlastDirectionality.explosive,
-                  shouldLoop: false,
-                  colors: const [
-                    Colors.green,
-                    Colors.blue,
-                    Colors.pink,
-                    Colors.orange,
-                    Colors.purple
-                  ],
-                ),
-                Text(
-                  'You need to get %$randomNumber',
-                  style: TextStyle(
-                    color: mainColor4,
-                    fontSize: 24,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: AbsorbPointer(
-                    absorbing: disable,
-                    child: SfSlider(
-                      inactiveColor: mainColor2,
-                      activeColor: mainColor3,
-                      max: 100,
-                      value: _activeSliderValue,
-                      onChanged: (dynamic values) {
-                        setState(() {
-                          _activeSliderValue = values as double;
-                        });
-                      },
-                      onChangeEnd: (value) {
-                        var val =
-                            double.parse(value.toString().substring(0, 2));
 
-                        setState(() {
-                          disable = true;
-                        });
+    return Scaffold(
+      backgroundColor: mainColor,
+      body: SizedBox(
+        height: height,
+        width: width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ConfettiWidget(
+              confettiController: _controllerCenter,
+              blastDirectionality: BlastDirectionality.explosive,
+              shouldLoop: false,
+              colors: const [
+                Colors.green,
+                Colors.blue,
+                Colors.pink,
+                Colors.orange,
+                Colors.purple
+              ],
+            ),
+            Text(auth),
+            Text(
+              'You need to get %$randomNumber',
+              style: TextStyle(
+                color: mainColor4,
+                fontSize: 24,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: AbsorbPointer(
+                absorbing: disable,
+                child: SfSlider(
+                  inactiveColor: mainColor2,
+                  activeColor: mainColor3,
+                  max: 100,
+                  value: _activeSliderValue,
+                  onChanged: (dynamic values) {
+                    setState(() {
+                      _activeSliderValue = values as double;
+                    });
+                  },
+                  onChangeEnd: (value) {
+                    var val = double.parse(value.toString().substring(0, 2));
 
-                        if (val == randomNumber.toDouble()) {
-                          _controllerCenter.play();
+                    setState(() {
+                      disable = true;
+                    });
+
+                    if (val == randomNumber.toDouble()) {
+                      _controllerCenter.play();
+                    } else {
+                      if ((val - randomNumber.toDouble()).abs() <= 3) {
+                      } else {
+                        if ((val - randomNumber.toDouble()).abs() <= 7) {
                         } else {
-                          if ((val - randomNumber.toDouble()).abs() <= 3) {
+                          if ((val - randomNumber.toDouble()).abs() <= 12) {
                           } else {
-                            if ((val - randomNumber.toDouble()).abs() <= 7) {
+                            if ((val - randomNumber.toDouble()).abs() <= 20) {
                             } else {
-                              if ((val - randomNumber.toDouble()).abs() <= 12) {
+                              if ((val - randomNumber.toDouble()).abs() <= 30) {
                               } else {
                                 if ((val - randomNumber.toDouble()).abs() <=
-                                    20) {
+                                    40) {
                                 } else {
                                   if ((val - randomNumber.toDouble()).abs() <=
-                                      30) {
+                                      50) {
                                   } else {
-                                    if ((val - randomNumber.toDouble()).abs() <=
-                                        40) {
-                                    } else {
-                                      if ((val - randomNumber.toDouble())
-                                              .abs() <=
-                                          50) {
-                                      } else {
-                                        print('puan Alamadınız');
-                                      }
-                                    }
+                                    print('puan Alamadınız');
                                   }
                                 }
                               }
                             }
                           }
                         }
-                        Timer(
-                          Duration(seconds: 5),
-                          () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SecondLevel(),
-                              )),
-                        );
-                      },
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        );
-      },
+                      }
+                    }
+                    Timer(
+                      Duration(seconds: 5),
+                      () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SecondLevel(),
+                          )),
+                    );
+                  },
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
