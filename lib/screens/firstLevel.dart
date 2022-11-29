@@ -43,105 +43,123 @@ class _FirstLevelState extends State<FirstLevel> {
   @override
   Widget build(BuildContext context) {
     final String auth = FirebaseAuth.instance.currentUser!.uid;
-    final _usersStream = FirebaseFirestore.instance
-        .collection('Leaderboard')
-        .doc(auth)
-        .snapshots();
+
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      backgroundColor: mainColor,
-      body: SizedBox(
-        height: height,
-        width: width,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ConfettiWidget(
-              confettiController: _controllerCenter,
-              blastDirectionality: BlastDirectionality.explosive,
-              shouldLoop: false,
-              colors: const [
-                Colors.green,
-                Colors.blue,
-                Colors.pink,
-                Colors.orange,
-                Colors.purple
-              ],
-            ),
-            Text(auth),
-            Text(
-              'You need to get %$randomNumber',
-              style: TextStyle(
-                color: mainColor4,
-                fontSize: 24,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: AbsorbPointer(
-                absorbing: disable,
-                child: SfSlider(
-                  inactiveColor: mainColor2,
-                  activeColor: mainColor3,
-                  max: 100,
-                  value: _activeSliderValue,
-                  onChanged: (dynamic values) {
-                    setState(() {
-                      _activeSliderValue = values as double;
-                    });
-                  },
-                  onChangeEnd: (value) {
-                    var val = double.parse(value.toString().substring(0, 2));
+    return StreamBuilder(
+      stream: FirebaseFirestore.instance
+          .collection('Leaderboard')
+          .doc(auth)
+          .snapshots(),
+      builder: (context, snapshot) {
+        var userDocument = snapshot.data;
+        return Scaffold(
+          backgroundColor: mainColor,
+          body: SizedBox(
+            height: height,
+            width: width,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ConfettiWidget(
+                  confettiController: _controllerCenter,
+                  blastDirectionality: BlastDirectionality.explosive,
+                  shouldLoop: false,
+                  colors: const [
+                    Colors.green,
+                    Colors.blue,
+                    Colors.pink,
+                    Colors.orange,
+                    Colors.purple
+                  ],
+                ),
+                Text(
+                  'You need to get %$randomNumber',
+                  style: TextStyle(
+                    color: mainColor4,
+                    fontSize: 24,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: AbsorbPointer(
+                    absorbing: disable,
+                    child: SfSlider(
+                      inactiveColor: mainColor2,
+                      activeColor: mainColor3,
+                      max: 100,
+                      value: _activeSliderValue,
+                      onChanged: (dynamic values) {
+                        setState(() {
+                          _activeSliderValue = values as double;
+                        });
+                      },
+                      onChangeEnd: (value) {
+                        int currentPoint = userDocument!['point'];
+                        var val =
+                            double.parse(value.toString().substring(0, 2));
 
-                    setState(() {
-                      disable = true;
-                    });
+                        setState(() {
+                          disable = true;
+                        });
 
-                    if (val == randomNumber.toDouble()) {
-                      _controllerCenter.play();
-                    } else {
-                      if ((val - randomNumber.toDouble()).abs() <= 3) {
-                      } else {
-                        if ((val - randomNumber.toDouble()).abs() <= 7) {
+                        if (val == randomNumber.toDouble()) {
+                          _controllerCenter.play();
+                          currentPoint = currentPoint + 1000;
                         } else {
-                          if ((val - randomNumber.toDouble()).abs() <= 12) {
+                          if ((val - randomNumber.toDouble()).abs() <= 3) {
+                            currentPoint = currentPoint + 900;
                           } else {
-                            if ((val - randomNumber.toDouble()).abs() <= 20) {
+                            if ((val - randomNumber.toDouble()).abs() <= 7) {
+                              currentPoint = currentPoint + 800;
                             } else {
-                              if ((val - randomNumber.toDouble()).abs() <= 30) {
+                              if ((val - randomNumber.toDouble()).abs() <= 12) {
+                                currentPoint = currentPoint + 700;
                               } else {
                                 if ((val - randomNumber.toDouble()).abs() <=
-                                    40) {
+                                    20) {
+                                  currentPoint = currentPoint + 600;
                                 } else {
                                   if ((val - randomNumber.toDouble()).abs() <=
-                                      50) {
+                                      30) {
+                                    currentPoint = currentPoint + 500;
                                   } else {
-                                    print('puan Alamadınız');
+                                    if ((val - randomNumber.toDouble()).abs() <=
+                                        40) {
+                                      currentPoint = currentPoint + 400;
+                                    } else {
+                                      if ((val - randomNumber.toDouble())
+                                              .abs() <=
+                                          50) {
+                                        currentPoint = currentPoint + 300;
+                                      } else {
+                                        currentPoint = 0;
+                                      }
+                                    }
                                   }
                                 }
                               }
                             }
                           }
                         }
-                      }
-                    }
-                    Timer(
-                      Duration(seconds: 5),
-                      () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SecondLevel(),
-                          )),
-                    );
-                  },
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
+                        Timer(
+                          Duration(seconds: 5),
+                          () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SecondLevel(),
+                              )),
+                        );
+                      },
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
