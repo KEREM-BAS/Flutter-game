@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "969440422239",
+    "project_id": "game-2de4a",
+    "storage_bucket": "game-2de4a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:969440422239:android:69e7560039b7f1511eeeea",
+        "android_client_info": {
+          "package_name": "com.example.deneme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "969440422239-pp3iqhqns77f654lsqlvm7hk0e2d9a8a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnNqM4Cvn07RbJbVFCYPWeolOoN9lgU4A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "969440422239-pp3iqhqns77f654lsqlvm7hk0e2d9a8a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

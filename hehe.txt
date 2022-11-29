@@ -1,0 +1,13 @@
+  Future<void> getData() async {
+    QuerySnapshot querySnapshot = await users.get();
+
+    final allData = querySnapshot.docs.map((doc) => doc.data());
+    for (var element in allData) {
+      if (element.toString() == "{name: ${_controller.text.toString()}}") {
+        nameCheck = true;
+        if (nameCheck == true) {
+          print(element);
+        }
+      }
+    }
+  }
