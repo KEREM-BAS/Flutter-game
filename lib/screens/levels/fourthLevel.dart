@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, prefer_const_constructors
+
 import 'dart:async';
 import 'dart:math';
 
@@ -7,8 +9,6 @@ import 'package:deneme/configs/themeColor.dart';
 import 'package:deneme/screens/levels/fifthLevel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class FourthScreen extends StatefulWidget {

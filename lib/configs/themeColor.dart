@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, file_names
+
 import 'package:flutter/animation.dart';
 
 Color mainColor = Color.fromARGB(255, 44, 51, 51);
