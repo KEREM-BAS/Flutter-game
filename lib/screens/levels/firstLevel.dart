@@ -180,7 +180,7 @@ class _FirstLevelState extends State<FirstLevel> {
                         }
                         Timer(
                           Duration(seconds: 5),
-                          () => Navigator.push(
+                          () => Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => SecondLevel(),

@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                       'name': '${_controller.text}#$numa',
                       'point': 0,
                     });
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => FirstLevel(),

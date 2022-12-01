@@ -180,7 +180,7 @@ class _FourthScreenState extends State<FourthScreen> {
                         }
                         Timer(
                           Duration(seconds: 5),
-                          () => Navigator.push(
+                          () => Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => FifthScreen(),

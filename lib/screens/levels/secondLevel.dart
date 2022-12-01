@@ -178,7 +178,7 @@ class _SecondLevelState extends State<SecondLevel> {
                         }
                         Timer(
                           Duration(seconds: 5),
-                          () => Navigator.push(
+                          () => Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => ThirdScreen(),
