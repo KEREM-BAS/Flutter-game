@@ -1,11 +1,10 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'dart:async';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:confetti/confetti.dart';
 import 'package:deneme/configs/themeColor.dart';
+import 'package:deneme/screens/levels/thirdLevel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
@@ -24,6 +23,19 @@ bool disable = false;
 
 class _SecondLevelState extends State<SecondLevel> {
   late ConfettiController _controllerCenter;
+  @override
+  void initState() {
+    super.initState();
+    _controllerCenter =
+        ConfettiController(duration: const Duration(seconds: 2));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controllerCenter.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final String auth = FirebaseAuth.instance.currentUser!.uid;
@@ -169,7 +181,7 @@ class _SecondLevelState extends State<SecondLevel> {
                           () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => SecondLevel(),
+                                builder: (context) => ThirdScreen(),
                               )),
                         );
                       },
