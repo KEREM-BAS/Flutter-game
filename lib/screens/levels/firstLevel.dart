@@ -27,7 +27,6 @@ class _FirstLevelState extends State<FirstLevel> {
   late ConfettiController _controllerCenter;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _controllerCenter =
         ConfettiController(duration: const Duration(seconds: 2));
@@ -35,7 +34,6 @@ class _FirstLevelState extends State<FirstLevel> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _controllerCenter.dispose();
   }
