@@ -2,7 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deneme/configs/themeColor.dart';
-import 'package:deneme/screens/firstLevel.dart';
+import 'package:deneme/screens/levels/firstLevel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
