@@ -6,7 +6,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:confetti/confetti.dart';
 import 'package:deneme/configs/themeColor.dart';
-import 'package:deneme/screens/secondLevel.dart';
+import 'package:deneme/screens/levels/secondLevel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
@@ -53,6 +53,7 @@ class _FirstLevelState extends State<FirstLevel> {
           .doc(auth)
           .snapshots(),
       builder: (context, snapshot) {
+        var db = FirebaseFirestore.instance;
         var userDocument = snapshot.data;
         return Scaffold(
           backgroundColor: mainColor,
@@ -107,34 +108,70 @@ class _FirstLevelState extends State<FirstLevel> {
                         if (val == randomNumber.toDouble()) {
                           _controllerCenter.play();
                           currentPoint = currentPoint + 1000;
+                          db.collection('Leaderboard').doc(auth).set({
+                            'point': currentPoint,
+                          }, SetOptions(merge: true));
                         } else {
                           if ((val - randomNumber.toDouble()).abs() <= 3) {
                             currentPoint = currentPoint + 900;
+                            db.collection('Leaderboard').doc(auth).set({
+                              'point': currentPoint,
+                            }, SetOptions(merge: true));
                           } else {
                             if ((val - randomNumber.toDouble()).abs() <= 7) {
                               currentPoint = currentPoint + 800;
+                              db.collection('Leaderboard').doc(auth).set({
+                                'point': currentPoint,
+                              }, SetOptions(merge: true));
                             } else {
                               if ((val - randomNumber.toDouble()).abs() <= 12) {
                                 currentPoint = currentPoint + 700;
+                                db.collection('Leaderboard').doc(auth).set({
+                                  'point': currentPoint,
+                                }, SetOptions(merge: true));
                               } else {
                                 if ((val - randomNumber.toDouble()).abs() <=
                                     20) {
                                   currentPoint = currentPoint + 600;
+                                  db.collection('Leaderboard').doc(auth).set({
+                                    'point': currentPoint,
+                                  }, SetOptions(merge: true));
                                 } else {
                                   if ((val - randomNumber.toDouble()).abs() <=
                                       30) {
                                     currentPoint = currentPoint + 500;
+                                    db.collection('Leaderboard').doc(auth).set({
+                                      'point': currentPoint,
+                                    }, SetOptions(merge: true));
                                   } else {
                                     if ((val - randomNumber.toDouble()).abs() <=
                                         40) {
                                       currentPoint = currentPoint + 400;
+                                      db
+                                          .collection('Leaderboard')
+                                          .doc(auth)
+                                          .set({
+                                        'point': currentPoint,
+                                      }, SetOptions(merge: true));
                                     } else {
                                       if ((val - randomNumber.toDouble())
                                               .abs() <=
                                           50) {
                                         currentPoint = currentPoint + 300;
+                                        db
+                                            .collection('Leaderboard')
+                                            .doc(auth)
+                                            .set({
+                                          'point': currentPoint,
+                                        }, SetOptions(merge: true));
                                       } else {
                                         currentPoint = 0;
+                                        db
+                                            .collection('Leaderboard')
+                                            .doc(auth)
+                                            .set({
+                                          'point': currentPoint,
+                                        }, SetOptions(merge: true));
                                       }
                                     }
                                   }
